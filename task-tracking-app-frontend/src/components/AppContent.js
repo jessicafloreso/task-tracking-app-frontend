@@ -7,7 +7,7 @@ import Buttons from './Buttons';
 import AuthContent from './AuthContent';
 import LoginForm from './LoginForm';
 import WelcomeContent from './WelcomeContent'
-
+//import Login from './Login';
 export default class AppContent extends React.Component {
 
     constructor(props) {
@@ -30,13 +30,13 @@ export default class AppContent extends React.Component {
         e.preventDefault();
         request(
             "POST",
-            "/login",
+            "/authenticate",
             {
-                login: username,
+                username: username,
                 password: password
             }).then(
             (response) => {
-                setAuthHeader(response.data.token);
+                setAuthHeader(response.data.jwt);
                 this.setState({componentToShow: "messages"});
             }).catch(
             (error) => {
@@ -59,7 +59,7 @@ export default class AppContent extends React.Component {
                 role: "ROLE_USER"
             }).then(
             (response) => {
-                setAuthHeader(response.data.token);
+                setAuthHeader(response.data.jwt);
                 this.setState({componentToShow: "messages"});
             }).catch(
             (error) => {
