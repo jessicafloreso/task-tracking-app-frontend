@@ -15,7 +15,7 @@ const Login= () => {
         // Handle the authentication response from the Springboot application
         if (response.status === 200) {
           // Store the user's authentication token in local storage
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("auth_token", response.data.token);
 
           // Update the React state to indicate that the user is authenticated
           //setUserAuthenticated(true);

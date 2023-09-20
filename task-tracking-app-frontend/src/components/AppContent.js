@@ -8,13 +8,15 @@ import AuthContent from './AuthContent';
 import LoginForm from './LoginForm';
 import WelcomeContent from './WelcomeContent'
 import TaskForm from './TaskForm';
+import TaskList from './TaskList';
 //import Login from './Login';
 export default class AppContent extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            componentToShow: "welcome"
+            componentToShow: "welcome",
+            tasks: []
         }
     };
 
@@ -70,6 +72,13 @@ export default class AppContent extends React.Component {
         );
     };
 
+    onTaskCreated = (newTask) => {
+        // Update the state with the new task
+        this.setState((prevState) => ({
+          tasks: [...prevState.tasks, newTask],
+        }));
+      };
+
   render() {
     return (
       <>
@@ -81,7 +90,10 @@ export default class AppContent extends React.Component {
         {this.state.componentToShow === "welcome" && <WelcomeContent /> }
         {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
         {this.state.componentToShow === "messages" && <AuthContent />}
-        {this.state.componentToShow === "messages" && <TaskForm />}
+        {this.state.componentToShow === 'messages' && (
+          <TaskForm onTaskCreated={this.onTaskCreated} />
+        )}
+        {this.state.componentToShow === "messages" && <TaskList />}
 
 
       </>
