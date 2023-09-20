@@ -6,8 +6,8 @@ import { request, setAuthHeader } from '../axios_helper';
 import Buttons from './Buttons';
 import AuthContent from './AuthContent';
 import LoginForm from './LoginForm';
-import WelcomeContent from './WelcomeContent'
-//import Login from './Login';
+import WelcomeContent from './WelcomeContent';
+
 export default class AppContent extends React.Component {
 
     constructor(props) {

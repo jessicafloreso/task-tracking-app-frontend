@@ -1,0 +1,67 @@
+/* Custom Pomodoro Timer Container */
+.custom-pomodoro-timer {
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Header */
+  h1 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Timer Display */
+  .timer-display {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 20px 0;
+  }
+  
+  /* Buttons */
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Input Fields */
+  input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  /* Finished Message */
+  .finished-message {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
+  }
+  
+  /* Start New Session Button */
+  .finished-message button {
+    background-color: #4CAF50;
+  }
+  
+  /* Interval Display */
+  p {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
