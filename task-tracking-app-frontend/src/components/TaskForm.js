@@ -1,53 +1,49 @@
-// TaskForm.js
 import React, { useState } from 'react';
-import { request } from '../axios_helper';
+import { request, getAuthToken } from '../axios_helper'; // Import getAuthToken from axios_helper
+import jwt_decode from 'jwt-decode';
 
-export default function TaskForm() {
-  const [name, setName] = useState(''); // Update the state variable name
+export default function TaskForm(props) {
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-
-
-  const getCurrentUserId = () => {
-    const token = localStorage.getItem('token'); // Use 'token' as the storage key
-
-    if (token) {
-      try {
-        const decodedToken = jwt.decode(token); // Decode the JWT token
-        return decodedToken.userId; // Extract the user ID from the token
-      } catch (error) {
-        console.error('Error decoding JWT token:', error);
-      }
-    }
-
-    return null;
-  };
+  const token = getAuthToken(); // Use getAuthToken to retrieve the token
 
   const handleTaskSubmit = (e) => {
     e.preventDefault();
 
-    const userId = getCurrentUserId();
+    const username = getUserNameFromToken(token); // Implement getUserIdFromToken function
 
     console.log('Name:', name);
     console.log('Description:', description);
+    console.log('Username:', username);
+
     // Create a new task
-    request('POST', '/task', {
-      name, // Update the variable name here
+    const newTask = {
+      name,
       description,
       isCompleted: false,
-      userId,
-    })
+      username,
+    };
+
+    props.onTaskCreated(newTask); // <-- Notify the parent component about the new task
+
+    request('POST', '/task', newTask)
       .then((response) => {
         // Handle success
         console.log('Task created successfully');
+        setName(''); // Clear input fields after creating task
+        setDescription('');
+        props.onTaskCreated();
+
         // Optionally, you can update the task list in the parent component here
       })
       .catch((error) => {
         // Handle error
         console.error('Error creating task', error);
+        
+
       });
   };
 
-  
   return (
     <div>
       <h2>Create a New Task</h2>
@@ -72,3 +68,21 @@ export default function TaskForm() {
     </div>
   );
 }
+
+function getUserNameFromToken(token) {
+  try {
+    const decodedToken = jwt_decode(token);
+
+    // Log the decoded token and the extracted username
+    console.log('Decoded Token:', decodedToken);
+    
+    const username = decodedToken.sub; // Assuming "sub" contains the username
+    console.log('Extracted Username:', username);
+
+    return username;
+  } catch (error) {
+    console.error('Error decoding token', error);
+    return null; // Handle error case gracefully
+  }
+}
+
