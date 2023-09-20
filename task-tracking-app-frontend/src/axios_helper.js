@@ -2,6 +2,7 @@ import axios from 'axios';
 
 
 export const getAuthToken = () => {
+    console.log('GET Auth Token:', window.localStorage.getItem('auth_token'));
     return window.localStorage.getItem('auth_token');
 };
 

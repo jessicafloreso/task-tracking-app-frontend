@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { request, setAuthHeader } from '../axios_helper';
+import Pomodoro from './Pomodoro';
 
 export default class AuthContent extends React.Component {
 
@@ -17,7 +18,9 @@ export default class AuthContent extends React.Component {
         request(
             "GET",
             "/messages",
-            {}).then(
+            {
+
+            }).then(
             (response) => {
                 this.setState({data: response.data})
             }).catch(
@@ -34,6 +37,7 @@ export default class AuthContent extends React.Component {
 
   render() {
     return (
+        <>
         <div className="row justify-content-md-center">
             <div className="col-4">
                 <div className="card" style={{width: "18rem"}}>
@@ -50,7 +54,12 @@ export default class AuthContent extends React.Component {
                     </div>
                 </div>
             </div>
+        </div> 
+        <div>
+            <Pomodoro />
         </div>
+        </>
+        
     );
   };
 }
