@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import '../pomodoro.css'; // Import the CSS file
+// Import your images
+import workImage from '../assets/work.png';
+import breakImage from '../assets/break.png';
+import completedImage from '../assets/completed.png';
+import defaultImage from '../assets/smile.png';
 
 class Pomodoro extends Component {
     constructor(props) {
@@ -13,19 +18,38 @@ class Pomodoro extends Component {
           isRunning: false,
           time: 25 * 60,          // Initial time in seconds
           showMessage: false,     // Flag to display the finished message
+          imageSrc: defaultImage,
         };
       }
     
+      // Function to update the image source based on the timer state and timerStarted
+      updateImageSrc = () => {
+        const { isWorking, timerStarted } = this.state;
+
+        if (!timerStarted) {
+          // If the timer hasn't started, use the default image
+          this.setState({ imageSrc: defaultImage });
+        } else {
+          // If the timer has started, use the work or break image based on the state
+          const imageSrc = isWorking ? workImage : breakImage;
+          this.setState({ imageSrc });
+        }
+      };
+
+
       // Function to start or stop the timer
       toggleTimer = () => {
         this.setState((prevState) => ({
           isRunning: !prevState.isRunning,
+          timerStarted: true,
         }), () => {
           if (this.state.isRunning) {
             this.timerInterval = setInterval(this.tick, 1000);
           } else {
             clearInterval(this.timerInterval);
           }
+
+          this.updateImageSrc();
         });
       };
     
@@ -51,12 +75,14 @@ class Pomodoro extends Component {
               isWorking: false,
               time: this.state.breakTime,
               currentInterval: currentInterval + 1,
+              imageSrc: breakImage,
             });
           } else {
             // All intervals are completed, show finished message
             this.setState({
               isRunning: false,
               showMessage: true,
+              imageSrc: completedImage,
             });
             clearInterval(this.timerInterval);
           }
@@ -64,6 +90,7 @@ class Pomodoro extends Component {
           this.setState({
             isWorking: true,
             time: this.state.workTime,
+            imageSrc: workImage,
           });
         }
       };
@@ -75,6 +102,7 @@ class Pomodoro extends Component {
           time: this.state.workTime,
           currentInterval: 1,
           showMessage: false,
+          imageSrc: defaultImage,
         });
       };
     
@@ -90,6 +118,7 @@ class Pomodoro extends Component {
           isRunning: false,
           time: 25 * 60,
           showMessage: false,
+          imageSrc: defaultImage,
         });
       };
     
@@ -126,6 +155,7 @@ class Pomodoro extends Component {
           intervals,
           currentInterval,
           showMessage,
+          imageSrc,
         } = this.state;
         const timerType = isWorking ? 'Work' : 'Break';
         const minutes = Math.floor(time / 60);
@@ -133,8 +163,13 @@ class Pomodoro extends Component {
         const timerDisplay = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     
         return (
-          <div className="custom-pomodoro-timer">
-            <h1>Custom Pomodoro Timer</h1>
+
+          <div className={`pomodoro-timer ${this.state.isRunning ? (this.state.isWorking ? 'work-time' : 'break-time') : 'default-time'}`}>
+    
+            <div className="image-container">
+                <img src={imageSrc} alt="Timer State" />
+            </div>
+            <div className="timer-container">
             {showMessage ? (
               <>
                 <div className="finished-message">All sessions completed!</div>
@@ -142,11 +177,14 @@ class Pomodoro extends Component {
               </>
             ) : (
               <>
+                <h1>Pomodoro Timer</h1>
                 <h2>{timerType} Time</h2>
                 <div className="timer-display">{timerDisplay}</div>
+                <div id="interval"><p>Interval: {currentInterval}/{intervals}</p></div>
                 <button onClick={this.toggleTimer}>
                   {isRunning ? 'Pause' : 'Start'}
                 </button>
+
                 <button onClick={this.resetTimer}>Reset</button>
                 <div>
                   <label>Work Time (minutes):</label>
@@ -160,9 +198,11 @@ class Pomodoro extends Component {
                   <label>Intervals:</label>
                   <input type="number" value={intervals} onChange={(e) => this.updateIntervals(e.target.value)} />
                 </div>
-                <p>Interval: {currentInterval}/{intervals}</p>
+                
               </>
+              
             )}
+            </div>
           </div>
         );
       }
