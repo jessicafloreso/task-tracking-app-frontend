@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { request, getAuthToken } from '../axios_helper';
 import jwt_decode from 'jwt-decode';
+import '../TaskList.css';
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -88,45 +89,73 @@ export default function TaskList() {
   const completedTasks = tasks.filter((task) => task.isCompleted);
   const uncompletedTasks = tasks.filter((task) => !task.isCompleted);
 
+
   return (
-    <div>
-      <h2>Task List</h2>
-      <button onClick={handleRefresh}>Refresh</button>
+    <div className="task-list-container">
+      <div className="header">
+        <h2>Task List</h2>
+        <button className="refresh-button" onClick={handleRefresh}>
+          Refresh
+        </button>
+      </div>
       {loading && <p>Loading...</p>}
+      <div className="task-section">
+        <h3>Uncompleted Tasks</h3>
+        <ul className="task-list">
+          {uncompletedTasks.map((task) => (
+            <li key={task.id} className="task-item">
+              <div className="task-details">
+                <strong>Name:</strong> {task.name}<br />
+                <strong>Description:</strong> {task.description}<br />
+                <strong>Status:</strong> {task.isCompleted ? 'Completed' : 'Not Completed'}
+              </div>
+              <div className="task-buttons">
+                <button
+                  className="complete-button"
+                  onClick={() => handleTaskCompletion(task.id, true)}
+                >
+                  Mark Completed
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleTaskDeletion(task.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <h3>Uncompleted Tasks</h3>
-      <ul>
-        {uncompletedTasks.map((task) => (
-          <li key={task.id}>
-            <strong>Name:</strong> {task.name}<br />
-            <strong>Description:</strong> {task.description}<br />
-            <strong>Status:</strong> Not Completed
-            <button onClick={() => handleTaskCompletion(task.id, true)}>
-              Mark Completed
-            </button>
-            <button onClick={() => handleTaskDeletion(task.id)}>
-              Delete Task
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <h3>Completed Tasks</h3>
-      <ul>
-        {completedTasks.map((task) => (
-          <li key={task.id}>
-            <strong>Name:</strong> {task.name}<br />
-            <strong>Description:</strong> {task.description}<br />
-            <strong>Status:</strong> Completed
-            <button onClick={() => handleTaskCompletion(task.id, false)}>
-              Mark Not Completed
-            </button>
-            <button onClick={() => handleTaskDeletion(task.id)}>
-              Delete Task
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="task-section">
+        <h3>Completed Tasks</h3>
+        <ul className="task-list">
+          {completedTasks.map((task) => (
+            <li key={task.id} className="task-item">
+              <div className="task-details">
+                <strong>Name:</strong> {task.name}<br />
+                <strong>Description:</strong> {task.description}<br />
+                <strong>Status:</strong> {task.isCompleted ? 'Completed' : 'Not Completed'}
+              </div>
+              <div className="task-buttons">
+                <button
+                  className="uncomplete-button"
+                  onClick={() => handleTaskCompletion(task.id, false)}
+                >
+                  Mark Not Completed
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleTaskDeletion(task.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
