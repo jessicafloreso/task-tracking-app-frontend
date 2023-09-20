@@ -12,7 +12,6 @@ import WelcomeContent from './WelcomeContent';
 
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
-//import Login from './Login';
 
 export default class AppContent extends React.Component {
 

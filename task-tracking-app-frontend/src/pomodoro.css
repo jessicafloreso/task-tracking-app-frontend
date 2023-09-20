@@ -1,17 +1,20 @@
 /* Custom Pomodoro Timer Container */
-.custom-pomodoro-timer {
+.pomodoro-timer {
     text-align: center;
     margin: 0 auto;
     padding: 20px;
-    max-width: 400px;
+    max-width: 600px;
     background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Vertically center content */
+    justify-content: space-between; /* Create space between the timer and image */
+    }
   
   /* Header */
   h1 {
-    font-size: 16px;
+    font-size: 40px;
     margin-bottom: 10px;
   }
   
@@ -25,12 +28,12 @@
   /* Buttons */
   button {
     font-size: 16px;
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 10px 10px;
+    margin: 10px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     outline: none;
   }
@@ -64,4 +67,28 @@
     font-size: 18px;
     margin-top: 10px;
   }
+
   
+  .work-time {
+    background-color: #ff6347; /* Red for work time */
+    /* Add more styles for work time as needed */
+    color: rgb(96, 43, 89);
+  }
+  
+  .break-time {
+    background-color: #5bc0de; /* Blue for break time */
+    /* Add more styles for break time as needed */
+    color: rgb(26, 26, 125);
+  }
+ 
+  /* Style for the image container */
+.image-container {
+  flex: 1; /* Let the image container grow to fill available space */
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+
+/* Style for the image */
+.image-container img {
+  max-width: 100%; /* Ensure the image fits within the container */
+  height: auto; /* Maintain the aspect ratio of the image */
+}
