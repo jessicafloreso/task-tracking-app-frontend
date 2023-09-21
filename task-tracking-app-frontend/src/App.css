@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(238, 216, 156);
+}
+
 .App-logo{
   height:80px;
   margin-right:auto;
@@ -18,9 +22,6 @@
   text-align: center;
 }
 
-body {
-  background-color: rgba(225, 174, 71, 0.313); /* Change to your desired background color */
-}
 
 .App-Intro {
   font-family: 'Henny Penny', sans-serif;
@@ -34,5 +35,7 @@ body {
   border-radius: 5px; /* Rounded corners */
   padding: 10px; /* Add some padding for better spacing */
   margin: 10px auto; /* Center horizontally and add spacing at the top and bottom */
+
   max-width: 210px; /* Set the maximum width */
 }
+
