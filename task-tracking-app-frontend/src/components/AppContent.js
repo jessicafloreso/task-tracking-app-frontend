@@ -19,7 +19,8 @@ export default class AppContent extends React.Component {
         super(props);
         this.state = {
             componentToShow: "welcome",
-            tasks: []
+            tasks: [],
+            error: null
         }
     };
 
@@ -28,8 +29,9 @@ export default class AppContent extends React.Component {
     };
 
     logout = () => {
-        this.setState({componentToShow: "welcome"})
+        this.setState({componentToShow: "welcome", error: null})
         setAuthHeader(null);
+    
     };
 
     onLogin = (e, username, password) => {
@@ -43,11 +45,11 @@ export default class AppContent extends React.Component {
             }).then(
             (response) => {
                 setAuthHeader(response.data.jwt);
-                this.setState({componentToShow: "messages"});
+                this.setState({componentToShow: "messages", error: null});
             }).catch(
             (error) => {
                 setAuthHeader(null);
-                this.setState({componentToShow: "welcome"})
+                this.setState({componentToShow: "login", error: "Invalid credentials"}); 
             }
         );
     };
@@ -65,12 +67,13 @@ export default class AppContent extends React.Component {
                 role: "ROLE_USER"
             }).then(
             (response) => {
+                
                 setAuthHeader(response.data.jwt);
-                this.setState({componentToShow: "messages"});
+                this.setState({componentToShow: "login"});
             }).catch(
             (error) => {
                 setAuthHeader(null);
-                this.setState({componentToShow: "welcome"})
+                this.setState({componentToShow: "login", error: "Unable to register. Try again"})
             }
         );
     };
@@ -91,13 +94,22 @@ export default class AppContent extends React.Component {
         />
 
         {this.state.componentToShow === "welcome" && <WelcomeContent /> }
+        {this.state.error && <div className="error-message">{this.state.error}</div>}
         {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
-        {this.state.componentToShow === "messages" && <Pomodoro />}
-        {this.state.componentToShow === 'messages' && (
-          <TaskForm onTaskCreated={this.onTaskCreated} />
-        )}
-        {this.state.componentToShow === "messages" && <TaskList />}
 
+        <div className='user-content-container'>
+            <div>
+            {this.state.componentToShow === 'messages' && (
+            <TaskForm onTaskCreated={this.onTaskCreated} />
+            )}
+            </div>
+            <div>
+            {this.state.componentToShow === "messages" && <TaskList />}
+            </div>
+            <div>
+            {this.state.componentToShow === "messages" && <Pomodoro />}
+            </div>
+        </div>
 
       </>
     );

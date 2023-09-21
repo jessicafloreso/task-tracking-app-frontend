@@ -1,5 +1,6 @@
   .task-form-container {
-    width: 30%; /* Adjust the width as needed */
+    
+    max-width: 600px;
     margin: 0 auto; /* Center the form horizontally */
     padding: 20px; /* Add some padding to the container */
     border: 1px solid #ccc; /* Add a border for visual separation */

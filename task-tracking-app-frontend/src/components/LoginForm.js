@@ -12,10 +12,15 @@ export default class LoginForm extends React.Component {
             email: "",
             username: "",
             password: "",
+            error: "",
             onLogin: props.onLogin,
             onRegister: props.onRegister
         };
     };
+
+    setError(message) {
+      this.setState({ error: message });
+    }
 
     onChangeHandler = (event) => {
         let name = event.target.name;
@@ -87,6 +92,7 @@ export default class LoginForm extends React.Component {
               </div>
             </div>
             </div>
+            {this.state.error && <div className="error-message">{this.state.error}</div>} {/* Display error message */}
         </div>
         );
     };
