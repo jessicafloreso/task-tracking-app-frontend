@@ -34,6 +34,7 @@
   .task-buttons {
     display: flex;
     gap: 10px;
+    border-radius: 5px; /* Add rounded corners */
   }
   
   .complete-button,
@@ -55,3 +56,6 @@
     cursor: pointer;
   }
   
+  .refresh-button{
+    border-radius: 5px; /* Add rounded corners */
+  }

@@ -37,6 +37,14 @@
     cursor: pointer;
     outline: none;
   }
+
+  .pomodoro-timer button{
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin: 10px;
+    border: 2px solid #163b23;
+    background-color: #7a541ada;
+  }
   
   button:hover {
     background-color: #0056b3;
