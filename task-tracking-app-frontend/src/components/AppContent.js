@@ -73,7 +73,7 @@ export default class AppContent extends React.Component {
             }).catch(
             (error) => {
                 setAuthHeader(null);
-                this.setState({componentToShow: "login", error: "Unable to register. Try again"})
+                this.setState({componentToShow: "login", error: "Unable to register. Please try again and fill with valid email, username, and password"})
             }
         );
     };
