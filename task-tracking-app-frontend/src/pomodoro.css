@@ -4,7 +4,7 @@
     margin: 0 auto;
     padding: 20px;
     max-width: 600px;
-    background-color: #f0f0f0;
+    background-color: #b5bbed;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex; /* Use flexbox for layout */
@@ -70,15 +70,20 @@
 
   
   .work-time {
-    background-color: #ff6347; /* Red for work time */
+    background-color: #e29081; /* Red for work time */
     /* Add more styles for work time as needed */
-    color: rgb(96, 43, 89);
+    color: rgb(88, 41, 82);
   }
   
   .break-time {
-    background-color: #5bc0de; /* Blue for break time */
+    background-color: #9ccaf1; /* Blue for break time */
     /* Add more styles for break time as needed */
-    color: rgb(26, 26, 125);
+    color: rgb(25, 25, 102);
+  }
+
+  .default-time{
+    background-color: #5cb991;
+
   }
  
   /* Style for the image container */

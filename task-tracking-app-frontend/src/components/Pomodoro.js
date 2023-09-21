@@ -177,7 +177,7 @@ class Pomodoro extends Component {
               </>
             ) : (
               <>
-                <h1>Pomodoro Timer</h1>
+                <h1>Timeado Timer</h1>
                 <h2>{timerType} Time</h2>
                 <div className="timer-display">{timerDisplay}</div>
                 <div id="interval"><p>Interval: {currentInterval}/{intervals}</p></div>
