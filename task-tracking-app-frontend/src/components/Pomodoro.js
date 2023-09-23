@@ -19,14 +19,52 @@ class Pomodoro extends Component {
           time: 25 * 60,          // Initial time in seconds
           showMessage: false,     // Flag to display the finished message
           imageSrc: defaultImage,
+          isFullScreen: false,
         };
       }
     
+      toggleFullScreen = () => {
+        const timerElement = this.timerElement;
+      
+        if (!timerElement) return; // Ensure the timer element exists
+      
+        if (
+          !document.fullscreenElement &&
+          !document.mozFullScreenElement &&
+          !document.webkitFullscreenElement &&
+          !document.msFullscreenElement
+        ) {
+          // Enter fullscreen mode
+          if (timerElement.requestFullscreen) {
+            timerElement.requestFullscreen();
+          } else if (timerElement.mozRequestFullScreen) {
+            timerElement.mozRequestFullScreen();
+          } else if (timerElement.webkitRequestFullscreen) {
+            timerElement.webkitRequestFullscreen();
+          } else if (timerElement.msRequestFullscreen) {
+            timerElement.msRequestFullscreen();
+          }
+        } else {
+          // Exit fullscreen mode
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        }
+      };
+      
+      
+
       // Function to update the image source based on the timer state and timerStarted
       updateImageSrc = () => {
-        const { isWorking, timerStarted } = this.state;
+        const { isWorking, timerStarted, isRunning } = this.state;
 
-        if (!timerStarted) {
+        if (!timerStarted || !isRunning) {
           // If the timer hasn't started, use the default image
           this.setState({ imageSrc: defaultImage });
         } else {
@@ -163,8 +201,18 @@ class Pomodoro extends Component {
         const timerDisplay = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     
         return (
-
-          <div className={`pomodoro-timer ${this.state.isRunning ? (this.state.isWorking ? 'work-time' : 'break-time') : 'default-time'}`}>
+          <div className="timer-container">
+            <button id="focus-button"onClick={this.toggleFullScreen}>Focus Mode</button>
+          <div
+              className={`pomodoro-timer ${
+                this.state.isRunning
+                  ? this.state.isWorking
+                    ? 'work-time'
+                    : 'break-time'
+                  : 'default-time'
+              }`}
+              ref={(element) => (this.timerElement = element)} // Create a ref for the timer element
+            >
     
             <div className="image-container">
                 <img src={imageSrc} alt="Timer State" />
@@ -177,7 +225,7 @@ class Pomodoro extends Component {
               </>
             ) : (
               <>
-                <h1>Timeado Timer</h1>
+                <h1 className='App-Intro'>Timeado Timer</h1>
                 <h2>{timerType} Time</h2>
                 <div className="timer-display">{timerDisplay}</div>
                 <div id="interval"><p>Interval: {currentInterval}/{intervals}</p></div>
@@ -204,6 +252,8 @@ class Pomodoro extends Component {
             )}
             </div>
           </div>
+          </div>
+          
         );
       }
     }

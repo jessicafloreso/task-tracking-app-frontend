@@ -56,6 +56,7 @@ export default class AppContent extends React.Component {
 
     onRegister = (event, email, username, password) => {
         event.preventDefault();
+
       
         return new Promise((resolve, reject) => {
           request("POST", "/user", {
@@ -75,6 +76,7 @@ export default class AppContent extends React.Component {
             });
         });
       };
+
 
     onTaskCreated = (newTask) => {
         // Update the state with the new task
