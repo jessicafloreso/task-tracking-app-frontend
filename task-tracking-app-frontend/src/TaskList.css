@@ -37,7 +37,9 @@
 
 .task-details {
   flex: 1;
-  margin-right: 10px; /* Added margin to separate details from buttons */
+  white-space: normal;   
+  word-wrap: break-word; 
+  overflow: hidden;      
 }
 
 .task-buttons {

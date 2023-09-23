@@ -106,7 +106,8 @@ return (
         {uncompletedTasks.map((task) => (
           <li key={task.id} className="task-item">
             <div className="task-details">
-              <strong>Name:</strong> {task.name}  &emsp;
+              <strong>Name:</strong> {task.name}
+              <br/>
               <strong>Description:</strong> {task.description}
             </div>
             <div className="task-buttons">
@@ -134,7 +135,8 @@ return (
         {completedTasks.map((task) => (
           <li key={task.id} className="task-item">
             <div className="task-details">
-              <strong>Name:</strong> {task.name} &emsp;
+              <strong>Name:</strong> {task.name}
+              <br/>
               <strong>Description:</strong> {task.description}
             </div>
             <div className="task-buttons">
