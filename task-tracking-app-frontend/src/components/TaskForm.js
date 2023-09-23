@@ -5,16 +5,21 @@ import '../TaskForm.css';
 export default function TaskForm(props) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const token = getAuthToken(); // Use getAuthToken to retrieve the token
 
   const handleTaskSubmit = (e) => {
     e.preventDefault();
 
-    const username = getUserNameFromToken(token); // Implement getUserIdFromToken function
+    // Check if name or description is empty
+    if (!name.trim() || !description.trim()) {
+      // Show the alert
+      setShowAlert(true);
+      return; // Don't proceed with task creation
+    }
 
-    console.log('Name:', name);
-    console.log('Description:', description);
-    console.log('Username:', username);
+    const username = getUserNameFromToken(token); // Implement getUserIdFromToken function
 
     // Create a new task
     const newTask = {
@@ -24,22 +29,22 @@ export default function TaskForm(props) {
       username,
     };
 
-    props.onTaskCreated(newTask); // <-- Notify the parent component about the new task
 
     request('POST', '/task', newTask)
       .then((response) => {
-        // Handle success
-        console.log('Task created successfully');
         setName(''); // Clear input fields after creating task
         setDescription('');
         props.onTaskCreated();
-
-        // Optionally, you can update the task list in the parent component here
+        setShowAlert(false);
+        setShowSuccess(true);
+        props.onTaskCreated(newTask);
+        // Hide the success message after 5 seconds (5000 milliseconds)
+        setTimeout(function () {
+          setShowSuccess(false);
+        }, 5000);
       })
       .catch((error) => {
-        // Handle error
         console.error('Error creating task', error);
-        
 
       });
   };
@@ -69,6 +74,14 @@ export default function TaskForm(props) {
         </div>
         <button type="submit" className="btn-primary">Create Task</button> {/* Apply the button class */}
       </form>
+      <div id="success-message" className={showSuccess ? 'alert success' : 'alert hidden'}>
+        Task created successfully! Press refresh to see the task!
+      </div>
+      {showAlert && (
+        <div className="alert">
+          Please provide both a name and a description for the task.
+        </div>
+      )}
     </div>
   );
 }

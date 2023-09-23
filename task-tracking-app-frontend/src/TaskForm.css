@@ -54,6 +54,27 @@
     animation: slideIn 0.3s ease-in-out; /* Add animation for appearance */
   }
   
+  .alert {
+    background-color: #f44336; /* Red background color */
+    color: #fff; /* White text color */
+    padding: 10px; /* Add padding to the alert */
+    border-radius: 3px;
+    margin-top: 10px; /* Add some space between form and alert */
+  }
+
+  .alert.hidden {
+    display: none;
+  }
+
+  .alert.success {
+    background-color: #4CAF50; /* Green background color for success */
+    color: white; /* White text color for success */
+    padding: 10px; /* Add padding to the success message */
+    border-radius: 3px; /* Add rounded corners */
+    margin-top: 10px; /* Add some space between form and success message */
+    animation: slideIn 0.3s ease-in-out; /* Add animation for appearance */
+  }
+  
   @keyframes slideIn {
     0% {
       transform: translateY(-100%);
@@ -62,3 +83,4 @@
       transform: translateY(0);
     }
 }
+

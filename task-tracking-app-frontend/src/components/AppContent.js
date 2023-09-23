@@ -36,47 +36,45 @@ export default class AppContent extends React.Component {
 
     onLogin = (e, username, password) => {
         e.preventDefault();
-        request(
-            "POST",
-            "/authenticate",
-            {
-                username: username,
-                password: password
-            }).then(
-            (response) => {
-                setAuthHeader(response.data.jwt);
-                this.setState({componentToShow: "messages", error: null});
-            }).catch(
-            (error) => {
-                setAuthHeader(null);
-                this.setState({componentToShow: "login", error: "Invalid credentials"}); 
-            }
-        );
-    };
+        return new Promise((resolve, reject) => {
+          request("POST", "/authenticate", {
+            username: username,
+            password: password,
+          })
+            .then((response) => {
+              setAuthHeader(response.data.jwt);
+              this.setState({ componentToShow: "messages"}); // Update the state here
+              resolve();
+            })
+            .catch((error) => {
+              setAuthHeader(null);
+              this.setState({ componentToShow: "login" }); // Update the state for login failure
+              reject(error);
+            });
+        });
+      };
 
     onRegister = (event, email, username, password) => {
         event.preventDefault();
-        request(
-            "POST",
-            "/user",
-            {
-                email: email,
-                username: username,
-                password: password,
-                enabled: 1,
-                role: "ROLE_USER"
-            }).then(
-            (response) => {
-                
-                setAuthHeader(response.data.jwt);
-                this.setState({componentToShow: "login"});
-            }).catch(
-            (error) => {
-                setAuthHeader(null);
-                this.setState({componentToShow: "login", error: "Unable to register. Try again"})
-            }
-        );
-    };
+      
+        return new Promise((resolve, reject) => {
+          request("POST", "/user", {
+            email: email,
+            username: username,
+            password: password,
+            enabled: 1,
+            role: "ROLE_USER",
+          })
+            .then((response) => {
+              setAuthHeader(response.data.jwt);
+              resolve(); // Resolve the promise when registration is successful
+            })
+            .catch((error) => {
+              setAuthHeader(null);
+              reject(error); // Reject the promise when registration fails
+            });
+        });
+      };
 
     onTaskCreated = (newTask) => {
         // Update the state with the new task
@@ -94,7 +92,7 @@ export default class AppContent extends React.Component {
         />
 
         {this.state.componentToShow === "welcome" && <WelcomeContent /> }
-        {this.state.error && <div className="error-message">{this.state.error}</div>}
+        {this.state.error && <div className="messages">{this.state.error}</div>}
         {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
 
         <div className='user-content-container'>

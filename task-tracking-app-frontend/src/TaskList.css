@@ -1,61 +1,74 @@
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header h2 {
+  flex: 1;
+}
 
 .task-list-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .task-section {
-    width: 48%; /* Adjust the width as needed */
-  }
-  
-  .task-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .task-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .task-details {
-    flex: 1;
-  }
-  
-  .task-buttons {
-    display: flex;
-    gap: 10px;
-    border-radius: 5px; /* Add rounded corners */
-  }
-  
-  .complete-button,
-  .uncomplete-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .delete-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .refresh-button{
-    border-radius: 5px; /* Add rounded corners */
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Changed to column layout */
+  gap: 20px; /* Added gap between sections */
+}
+
+.task-section {
+  width: 100%; /* Adjust the width as needed */
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-details {
+  flex: 1;
+  margin-right: 10px; /* Added margin to separate details from buttons */
+}
+
+.task-buttons {
+  display: flex;
+  gap: 10px;
+  border-radius: 5px;
+}
+
+.complete-button,
+.uncomplete-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.refresh-button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
