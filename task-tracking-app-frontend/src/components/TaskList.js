@@ -90,75 +90,75 @@ export default function TaskList() {
   const uncompletedTasks = tasks.filter((task) => !task.isCompleted);
 
 
-  return (
-    <div className="task-list-container">
-      <div className="header">
-        <h2>Task List</h2>
-        <button className="refresh-button" onClick={handleRefresh}>
-          Refresh
-        </button>
-      </div>
-      {loading && <p>Loading...</p>}
-      <div className="task-section">
-        <h3>Uncompleted Tasks</h3>
-        <ul className="task-list">
-          {uncompletedTasks.map((task) => (
-            <li key={task.id} className="task-item">
-              <div className="task-details">
-                <strong>Name:</strong> {task.name}<br />
-                <strong>Description:</strong> {task.description}<br />
-                <strong>Status:</strong> {task.isCompleted ? 'Completed' : 'Not Completed'}
-              </div>
-              <div className="task-buttons">
-                <button
-                  className="complete-button"
-                  onClick={() => handleTaskCompletion(task.id, true)}
-                >
-                  Mark Completed
-                </button>
-                <button
-                  className="delete-button"
-                  onClick={() => handleTaskDeletion(task.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      <div className="task-section">
-        <h3>Completed Tasks</h3>
-        <ul className="task-list">
-          {completedTasks.map((task) => (
-            <li key={task.id} className="task-item">
-              <div className="task-details">
-                <strong>Name:</strong> {task.name}<br />
-                <strong>Description:</strong> {task.description}<br />
-                <strong>Status:</strong> {task.isCompleted ? 'Completed' : 'Not Completed'}
-              </div>
-              <div className="task-buttons">
-                <button
-                  className="uncomplete-button"
-                  onClick={() => handleTaskCompletion(task.id, false)}
-                >
-                  Mark Not Completed
-                </button>
-                <button
-                  className="delete-button"
-                  onClick={() => handleTaskDeletion(task.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+return (
+  <div className="task-list-container">
+    <div className="header">
+      <h2>Task List</h2>
+      <button className="refresh-button" onClick={handleRefresh}>
+        Refresh
+      </button>
     </div>
-  );
+    {loading && <p>Loading...</p>}
+    <div className="task-section">
+      <h3>Uncompleted Tasks</h3>
+      <ul className="task-list">
+        {uncompletedTasks.map((task) => (
+          <li key={task.id} className="task-item">
+            <div className="task-details">
+              <strong>Name:</strong> {task.name}  &emsp;
+              <strong>Description:</strong> {task.description}
+            </div>
+            <div className="task-buttons">
+              <button
+                className="complete-button"
+                onClick={() => handleTaskCompletion(task.id, true)}
+              >
+                Mark Completed
+              </button>
+              <button
+                className="delete-button"
+                onClick={() => handleTaskDeletion(task.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="task-section">
+      <h3>Completed Tasks</h3>
+      <ul className="task-list">
+        {completedTasks.map((task) => (
+          <li key={task.id} className="task-item">
+            <div className="task-details">
+              <strong>Name:</strong> {task.name} &emsp;
+              <strong>Description:</strong> {task.description}
+            </div>
+            <div className="task-buttons">
+              <button
+                className="uncomplete-button"
+                onClick={() => handleTaskCompletion(task.id, false)}
+              >
+                Mark Not Completed
+              </button>
+              <button
+                className="delete-button"
+                onClick={() => handleTaskDeletion(task.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
 }
+
 
 function getUserNameFromToken(token) {
   try {
@@ -173,6 +173,6 @@ function getUserNameFromToken(token) {
     return username;
   } catch (error) {
     console.error('Error decoding token', error);
-    return null; // Handle the error case gracefully
+    return null; 
   }
 }
