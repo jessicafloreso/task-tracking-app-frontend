@@ -5,6 +5,9 @@ import workImage from '../assets/work.png';
 import breakImage from '../assets/break.png';
 import completedImage from '../assets/completed.png';
 import defaultImage from '../assets/smile.png';
+import notifAudio from '../assets/notification.mp3'; // Replace with the actual path to your work audio file
+import celebrateAudio from '../assets/completed-sound.mp3'; // Replace with the actual path to your break audio file
+
 
 class Pomodoro extends Component {
     constructor(props) {
@@ -20,6 +23,8 @@ class Pomodoro extends Component {
           showMessage: false,     // Flag to display the finished message
           imageSrc: defaultImage,
           isFullScreen: false,
+          notifAudio: new Audio(notifAudio),
+          celebrateAudio: new Audio(celebrateAudio),
         };
       }
     
@@ -109,6 +114,7 @@ class Pomodoro extends Component {
     
         if (isWorking) {
           if (currentInterval < intervals) {
+            this.state.notifAudio.play();
             this.setState({
               isWorking: false,
               time: this.state.breakTime,
@@ -116,6 +122,7 @@ class Pomodoro extends Component {
               imageSrc: breakImage,
             });
           } else {
+            this.state.celebrateAudio.play();
             // All intervals are completed, show finished message
             this.setState({
               isRunning: false,
@@ -125,6 +132,7 @@ class Pomodoro extends Component {
             clearInterval(this.timerInterval);
           }
         } else {
+          this.state.notifAudio.play();
           this.setState({
             isWorking: true,
             time: this.state.workTime,
